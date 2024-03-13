@@ -26,13 +26,13 @@ class Geo(private val lat: Double, private val lon: Double) {
     }
 
     fun haversine(destination: Geo): Double {
-        val dLat = Math.toRadians(destination.lat - this.lat);
-        val dLon = Math.toRadians(destination.lon - this.lon);
-        val originLat = Math.toRadians(this.lat);
-        val destinationLat = Math.toRadians(destination.lat);
-        val a = sin(dLat / 2).pow(2.toDouble()) + sin(dLon / 2).pow(2.toDouble()) * cos(originLat) * cos(destinationLat);
-        val c = 2 * asin(sqrt(a));
-        return EARTH_RADIUS_KM * c;
+        val dLat = Math.toRadians(destination.lat - this.lat)
+        val dLon = Math.toRadians(destination.lon - this.lon)
+        val originLat = Math.toRadians(this.lat)
+        val destinationLat = Math.toRadians(destination.lat)
+        val a = sin(dLat / 2).pow(2.toDouble()) + sin(dLon / 2).pow(2.toDouble()) * cos(originLat) * cos(destinationLat)
+        val c = 2 * asin(sqrt(a))
+        return EARTH_RADIUS_KM * c
     }
 
 }

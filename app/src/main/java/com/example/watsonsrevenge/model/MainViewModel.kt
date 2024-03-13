@@ -62,16 +62,9 @@ class MainViewModel : ViewModel() {
         TimerUtil.resetTimer()
     }
 
-    private var _permissionGranted = MutableLiveData<Boolean>()
-    val permissionGranted: LiveData<Boolean> = _permissionGranted
-
     private var _currentScreen = MutableLiveData<Screen>()
     val currentScreen: LiveData<Screen> get() = _currentScreen
-    fun updatePermissionStatus(granted: Boolean) {
-        viewModelScope.launch {
-            _permissionGranted.value = granted
-        }
-    }
+
     fun navigateTo(screen: Screen) {
         viewModelScope.launch {
             _currentScreen.value = screen

@@ -49,7 +49,6 @@ class MyForegroundService : Service() {
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.locations.forEach { location ->
-                    // Update location data in the repository
                     LocationRepository.postLocationUpdate(location)
                 }
             }

@@ -51,7 +51,6 @@ fun PermissionsPage(viewModel: MainViewModel) {
 
         LaunchedEffect(key1 = locationPermissionState.hasPermission) {
             if (locationPermissionState.hasPermission) {
-                viewModel.updatePermissionStatus(granted = true)
                 startLocationService(context) // Simplified, assuming context handling as described.
                 viewModel.navigateTo(Screen.StartPage)
             }
@@ -60,7 +59,6 @@ fun PermissionsPage(viewModel: MainViewModel) {
         when {
 
             locationPermissionState.hasPermission -> {
-                viewModel.updatePermissionStatus(true)
                 startLocationService(context)
                 viewModel.navigateTo(Screen.StartPage)
             }

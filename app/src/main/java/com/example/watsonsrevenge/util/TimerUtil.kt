@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
  * CS 492
  */
 object TimerUtil {
+
     private var timerJob: Job? = null
     private val _timeElapsed = MutableLiveData<Long>(0)
     val timeElapsed: LiveData<Long> = _timeElapsed
@@ -22,7 +23,9 @@ object TimerUtil {
     private var pauseTime = 0L
 
     fun startTimer() {
+
         if (timerJob == null || timerJob?.isCancelled == true) {
+
             // If resuming from a pause, adjust the startTime by the pause duration
             if (pauseTime != 0L) {
                 startTime += System.currentTimeMillis() - pauseTime
@@ -38,6 +41,7 @@ object TimerUtil {
                     delay(1000) // Update every second
                 }
             }
+
         }
     }
 
