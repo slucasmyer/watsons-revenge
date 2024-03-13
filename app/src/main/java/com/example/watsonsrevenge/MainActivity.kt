@@ -2,7 +2,6 @@ package com.example.watsonsrevenge
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -25,6 +24,11 @@ import com.example.watsonsrevenge.ui.composables.TreasureHuntCompletedPage
 import com.example.watsonsrevenge.ui.theme.WatsonsRevengeTheme
 import org.json.JSONArray
 
+/*
+ * Sullivan Lucas Myer
+ * OSU
+ * CS 492
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

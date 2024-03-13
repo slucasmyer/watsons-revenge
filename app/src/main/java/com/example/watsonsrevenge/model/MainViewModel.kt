@@ -11,6 +11,11 @@ import com.example.watsonsrevenge.repository.ClueRepository
 import com.example.watsonsrevenge.util.TimerUtil
 import kotlinx.coroutines.launch
 
+/*
+ * Sullivan Lucas Myer
+ * OSU
+ * CS 492
+ */
 enum class Screen {
     PermissionsPage,
     StartPage,
@@ -36,64 +41,43 @@ class MainViewModel : ViewModel() {
         _showDialog.value = show
     }
 
-//    val clueProximityThreshold = 100.0
     val clueProximityThreshold = .05
-
-    // LiveData to manage proximity message visibility and content
-    private val _proximityMessage = MutableLiveData<String?>(null)
-    val proximityMessage: LiveData<String?> = _proximityMessage
-
-    // Function to update proximity message
-    fun updateProximityMessage(message: String?) {
-        _proximityMessage.value = message
-    }
 
     val locationUpdates: LiveData<Location> = LocationRepository.locationUpdates
 
     val currentClue: LiveData<Clue?> = ClueRepository.currentClue
-
     fun startGame() {
         TimerUtil.startTimer()
         navigateTo(Screen.CluePage)
     }
-
     fun goToNextClue() {
         ClueRepository.nextClue()
     }
-
     fun isLastClue(): Boolean {
-        // Delegate the check to the ClueRepository which knows about the clues' sequence
         return ClueRepository.isLastClue()
     }
-
     fun quitGame() {
         ClueRepository.resetClueIndex()
-        updateProximityMessage(null)
         navigateTo(Screen.StartPage)
         TimerUtil.resetTimer()
     }
-
 
     private var _permissionGranted = MutableLiveData<Boolean>()
     val permissionGranted: LiveData<Boolean> = _permissionGranted
 
     private var _currentScreen = MutableLiveData<Screen>()
     val currentScreen: LiveData<Screen> get() = _currentScreen
-
     fun updatePermissionStatus(granted: Boolean) {
         viewModelScope.launch {
             _permissionGranted.value = granted
         }
     }
-
     fun navigateTo(screen: Screen) {
         viewModelScope.launch {
             _currentScreen.value = screen
         }
     }
-
     init {
         navigateTo(Screen.PermissionsPage)
     }
-
 }

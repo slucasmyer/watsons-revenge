@@ -1,5 +1,10 @@
 package com.example.watsonsrevenge.data
 
+/*
+ * Sullivan Lucas Myer
+ * OSU
+ * CS 492
+ */
 data class Clue(
     val id: Int,
     val name: String,

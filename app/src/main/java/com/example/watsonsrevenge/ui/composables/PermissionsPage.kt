@@ -24,21 +24,29 @@ import com.example.watsonsrevenge.model.Screen
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 
-
+/*
+ * Sullivan Lucas Myer
+ * OSU
+ * CS 492
+ */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun PermissionsPage(viewModel: MainViewModel) {
+
     val context = LocalContext.current
     val locationPermissionState = rememberPermissionState(
         permission = android.Manifest.permission.ACCESS_FINE_LOCATION
     )
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Text(text = "Permissions Page", style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold))
+
         Spacer(modifier = Modifier.height(8.dp))
 
         LaunchedEffect(key1 = locationPermissionState.hasPermission) {
@@ -50,11 +58,13 @@ fun PermissionsPage(viewModel: MainViewModel) {
         }
 
         when {
+
             locationPermissionState.hasPermission -> {
                 viewModel.updatePermissionStatus(true)
                 startLocationService(context)
                 viewModel.navigateTo(Screen.StartPage)
             }
+
             locationPermissionState.shouldShowRationale -> {
                 Text("We need location permissions to proceed with the treasure hunt.")
                 // Show rationale and request permission
@@ -62,13 +72,15 @@ fun PermissionsPage(viewModel: MainViewModel) {
                     Text("Grant permission")
                 }
             }
+
             else -> {
-                // Permission is not granted, nor should show rationale. This is likely the first launch
                 Button(onClick = { locationPermissionState.launchPermissionRequest() }) {
                     Text("Grant Permissions")
                 }
             }
+
         }
+
     }
 }
 

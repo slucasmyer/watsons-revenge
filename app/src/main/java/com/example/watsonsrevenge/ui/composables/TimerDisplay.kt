@@ -13,11 +13,16 @@ import androidx.compose.ui.unit.dp
 import com.example.watsonsrevenge.util.TimerUtil
 import java.util.concurrent.TimeUnit
 
+/*
+ * Sullivan Lucas Myer
+ * OSU
+ * CS 492
+ */
 @Composable
 fun TimerDisplay() {
+
     val timeElapsed by TimerUtil.timeElapsed.observeAsState(0)
     val formattedTime = remember(timeElapsed) {
-        // Format timeElapsed from milliseconds to a human-readable format
         String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(timeElapsed),
             TimeUnit.MILLISECONDS.toSeconds(timeElapsed) % TimeUnit.MINUTES.toSeconds(1))
     }
@@ -27,4 +32,5 @@ fun TimerDisplay() {
         style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
         modifier = Modifier.padding(8.dp)
     )
+
 }

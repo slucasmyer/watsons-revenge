@@ -18,6 +18,11 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 
+/*
+ * Sullivan Lucas Myer
+ * OSU
+ * CS 492
+ */
 class MyForegroundService : Service() {
     private val locationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(this)
@@ -63,8 +68,6 @@ class MyForegroundService : Service() {
     companion object {
         const val NOTIFICATION_ID = 1
         const val CHANNEL_ID = "ForegroundServiceChannel"
-        const val ACTION_LOCATION_UPDATE = "location_update_action"
-        const val EXTRA_LOCATION_DATA = "location_extra_data"
     }
 
     private fun createNotificationChannel() {

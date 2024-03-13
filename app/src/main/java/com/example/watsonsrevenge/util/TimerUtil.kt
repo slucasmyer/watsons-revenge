@@ -9,6 +9,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
+/*
+ * Sullivan Lucas Myer
+ * OSU
+ * CS 492
+ */
 object TimerUtil {
     private var timerJob: Job? = null
     private val _timeElapsed = MutableLiveData<Long>(0)
