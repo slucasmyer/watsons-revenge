@@ -27,6 +27,7 @@ import com.example.watsonsrevenge.util.TimerUtil
 @Composable
 fun ClueSolvedPage(viewModel: MainViewModel) {
 
+    // Observe current clue state since we need access to the info
     val currentClue by viewModel.currentClue.observeAsState()
 
     Column(
@@ -43,6 +44,7 @@ fun ClueSolvedPage(viewModel: MainViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Display the current clue info if it exists
         currentClue?.let {
             Text(text = it.name, style = MaterialTheme.typography.headlineLarge)
             Spacer(modifier = Modifier.height(16.dp))
@@ -51,6 +53,7 @@ fun ClueSolvedPage(viewModel: MainViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Continue to next clue
         Button(
             onClick = {
                 viewModel.goToNextClue()
@@ -65,7 +68,7 @@ fun ClueSolvedPage(viewModel: MainViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Quit Button
+        // Quit Button. Directions say to have this on clue page, but figured it should be here too
         Button(onClick = {
             viewModel.quitGame()
         }, modifier = Modifier

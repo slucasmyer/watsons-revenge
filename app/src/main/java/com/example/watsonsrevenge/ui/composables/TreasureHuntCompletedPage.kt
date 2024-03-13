@@ -24,7 +24,7 @@ import com.example.watsonsrevenge.model.Screen
  */
 @Composable
 fun TreasureHuntCompletedPage(viewModel: MainViewModel) {
-
+    // Observe current clue state since we need to display it on this page
     val finalClue by viewModel.currentClue.observeAsState()
 
     Column(
@@ -44,6 +44,7 @@ fun TreasureHuntCompletedPage(viewModel: MainViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Display the final clue if it exists
         finalClue?.let {
             Text(text = it.name, style = MaterialTheme.typography.headlineLarge)
             Spacer(modifier = Modifier.height(16.dp))

@@ -33,10 +33,12 @@ fun StartPage(viewModel: MainViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        // Display app name
         Text(text = stringResource(id = R.string.app_name), style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold))
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Display game intro
         Box(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Text(text = stringResource(id = R.string.game_rules_intro), style = MaterialTheme.typography.headlineSmall)
         }
@@ -45,12 +47,14 @@ fun StartPage(viewModel: MainViewModel) {
 
         Text(text = stringResource(id = R.string.game_rules_headline), style = MaterialTheme.typography.headlineLarge)
 
+        // Display game rules
         Box(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Text(text = stringResource(id = R.string.game_rules_body), style = MaterialTheme.typography.headlineSmall)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Start the game
         Button(
             onClick = { viewModel.startGame() },
             modifier = Modifier.padding(16.dp)

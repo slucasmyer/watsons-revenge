@@ -5,6 +5,8 @@ package com.example.watsonsrevenge.data
  * OSU
  * CS 492
  */
+
+// Data class for Clue
 data class Clue(
     val id: Int,
     val name: String,

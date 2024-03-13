@@ -20,13 +20,14 @@ import java.util.concurrent.TimeUnit
  */
 @Composable
 fun TimerDisplay() {
-
+    // Observe time elapsed
     val timeElapsed by TimerUtil.timeElapsed.observeAsState(0)
+    // Format time elapsed
     val formattedTime = remember(timeElapsed) {
         String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(timeElapsed),
             TimeUnit.MILLISECONDS.toSeconds(timeElapsed) % TimeUnit.MINUTES.toSeconds(1))
     }
-
+    // Display time elapsed
     Text(
         text = "Time Elapsed: $formattedTime",
         style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),

@@ -12,6 +12,7 @@ import kotlin.math.sqrt
  * CS 492
  */
 class Geo(private val lat: Double, private val lon: Double) {
+    // I got this from the assignment prompt. No changes other than 'kotlinizing' it
     /**
      * Haversine formula. Giving great-circle distances between two points on a sphere from their longitudes and latitudes.
      * It is a special case of a more general formula in spherical trigonometry, the law of haversines, relating the

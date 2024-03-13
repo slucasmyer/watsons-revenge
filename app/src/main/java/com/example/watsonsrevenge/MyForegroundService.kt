@@ -24,28 +24,34 @@ import com.google.android.gms.location.Priority
  * CS 492
  */
 class MyForegroundService : Service() {
+    // LocationProviderClient for location updates
     private val locationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(this)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // Start foreground service
         createNotificationChannel()
         startForeground(NOTIFICATION_ID, createNotification())
 
+        // Request location updates
         requestLocationUpdates()
         return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? {
+        // Not a bound service
         return null
     }
 
     private fun requestLocationUpdates() {
 
+        // LocationRequest for location updates
         val locationRequest = LocationRequest.Builder(5000L)
             .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
             .build()
 
+        // LocationCallback for location updates
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.locations.forEach { location ->
@@ -55,21 +61,24 @@ class MyForegroundService : Service() {
         }
 
         try {
+            // Request location updates
             locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
         } catch (unlikely: SecurityException) {
+            // Failed to request location updates
             Log.e("LocationService", "Failed to request location updates", unlikely)
         }
     }
 
 
 
-
+    // Notification ID and Channel ID
     companion object {
         const val NOTIFICATION_ID = 1
         const val CHANNEL_ID = "ForegroundServiceChannel"
     }
 
     private fun createNotificationChannel() {
+        // Create notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 CHANNEL_ID,
@@ -82,12 +91,16 @@ class MyForegroundService : Service() {
     }
 
     private fun createNotification(): Notification {
+        // Create notification
         val notificationIntent = Intent(this, MainActivity::class.java)
+
+        // Create pending intent
         val pendingIntent = PendingIntent.getActivity(
             this,
             0, notificationIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        // Return notification
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Location Service")
             .setContentText("Running...")

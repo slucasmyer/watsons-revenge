@@ -33,7 +33,9 @@ import com.google.accompanist.permissions.rememberPermissionState
 @Composable
 fun PermissionsPage(viewModel: MainViewModel) {
 
+    // Get the context
     val context = LocalContext.current
+    // Create a permission state for location
     val locationPermissionState = rememberPermissionState(
         permission = android.Manifest.permission.ACCESS_FINE_LOCATION
     )
@@ -49,6 +51,7 @@ fun PermissionsPage(viewModel: MainViewModel) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        // Use LaunchedEffect to start the location service and navigate to the start page
         LaunchedEffect(key1 = locationPermissionState.hasPermission) {
             if (locationPermissionState.hasPermission) {
                 startLocationService(context) // Simplified, assuming context handling as described.
@@ -56,6 +59,7 @@ fun PermissionsPage(viewModel: MainViewModel) {
             }
         }
 
+        // Display the permission request UI
         when {
 
             locationPermissionState.hasPermission -> {
@@ -83,6 +87,7 @@ fun PermissionsPage(viewModel: MainViewModel) {
 }
 
 fun startLocationService(context: Context) {
+    // Start the foreground service
     val intent = Intent(context, MyForegroundService::class.java)
     ContextCompat.startForegroundService(context, intent)
 }

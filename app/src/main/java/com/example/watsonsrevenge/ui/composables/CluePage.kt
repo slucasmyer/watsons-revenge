@@ -31,12 +31,18 @@ import com.example.watsonsrevenge.util.TimerUtil
 @Composable
 fun CluePage(viewModel: MainViewModel) {
 
+    // Observe current clue state
     val currentClue by viewModel.currentClue.observeAsState()
+    // Observe user location
     val location by viewModel.locationUpdates.observeAsState()
+    // Observe dialog state
     val showDialog by viewModel.showDialog.observeAsState(false)
+    // Observe dialog title and message
     val dialogTitle by viewModel.dialogTitle.observeAsState("")
+    // Observe dialog message
     val dialogMessage by viewModel.dialogMessage.observeAsState("")
 
+    // Display dialog if showDialog is true
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { viewModel.updateDialog(null, null, false) },
@@ -67,14 +73,17 @@ fun CluePage(viewModel: MainViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Display the current clue description if it exists
         currentClue?.let {
             Text(it.description, style = MaterialTheme.typography.headlineLarge)
         } ?: Text("No clue available")
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Buttons for getting hint and marking clue as found
         Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
 
+            // Show hint in dialog
             Button(
                 modifier = Modifier.weight(1f),
                 onClick = {
@@ -88,6 +97,7 @@ fun CluePage(viewModel: MainViewModel) {
 
             Spacer(modifier = Modifier.width(16.dp))
 
+            // Check if user is close enough to the clue
             Button(modifier = Modifier.weight(1f), onClick = {
                 location?.let { currentLocation ->
                     // Create Geo instances for user location and clue location
@@ -98,6 +108,8 @@ fun CluePage(viewModel: MainViewModel) {
                         // Calculate the distance
                         val distance = userGeo.haversine(it)
 
+                        // If the user is close enough (50M) to the clue,
+                        // navigate to the next clue or the treasure hunt completed page
                         if (distance <= viewModel.clueProximityThreshold) {
                             TimerUtil.pauseTimer()
                             viewModel.navigateTo(Screen.ClueSolvedPage)
@@ -107,6 +119,7 @@ fun CluePage(viewModel: MainViewModel) {
                                 viewModel.navigateTo(Screen.ClueSolvedPage)
                             }
                         } else {
+                            // If the user is not close enough, display a dialog
                             viewModel.updateDialog(
                                 "Not Quite!",
                                 "You're still $distance km away from the clue. Keep looking!",

@@ -53,7 +53,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppContent(viewModel: MainViewModel) {
+    // Observe current screen state
     val currentScreen by viewModel.currentScreen.observeAsState(initial = Screen.PermissionsPage)
+    // Render composable based on current screen state
     when (currentScreen) {
         Screen.PermissionsPage -> PermissionsPage(viewModel)
         Screen.StartPage -> StartPage(viewModel)
@@ -64,13 +66,16 @@ fun AppContent(viewModel: MainViewModel) {
 }
 
 fun loadJsonFromRaw(context: Context, resourceId: Int): String {
+    // Load JSON file from raw resources
     return context.resources.openRawResource(resourceId).bufferedReader().use { it.readText() }
 }
 
 fun parseCluesFromJson(jsonString: String): List<Clue> {
+    // Parse JSON string into list of Clue objects
     val cluesList = mutableListOf<Clue>()
     val jsonArray = JSONArray(jsonString)
 
+    // Iterate through JSON array and create Clue objects
     for (i in 0 until jsonArray.length()) {
         val jsonObject = jsonArray.getJSONObject(i)
         val id = jsonObject.getInt("id")
@@ -82,7 +87,6 @@ fun parseCluesFromJson(jsonString: String): List<Clue> {
         val longitude = jsonObject.getDouble("longitude")
         cluesList.add(Clue(id, name, description, hint, info, latitude, longitude))
     }
-
+    // Return list of Clue objects
     return cluesList
 }
-
