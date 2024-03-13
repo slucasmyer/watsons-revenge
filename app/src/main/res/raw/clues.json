@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "name": "221B Baker Street",
+        "description": "A place where the game is always afoot, and the game is never over.",
+        "hint": "The address of the world's most famous detective.",
+        "info": "221B Baker Street is the fictional London address of the world's most famous detective, Sherlock Holmes. The address was first mentioned in the 1887 story A Study in Scarlet and has since become synonymous with the character. Although 221B Baker Street is a real address in London, it was not actually used by Sir Arthur Conan Doyle in his stories. The address has since become a popular tourist attraction, and is home to the Sherlock Holmes Museum. The museum is dedicated to the life and work of Sherlock Holmes, and features a recreation of the detective's famous study, as well as a gift shop and a tea room. The museum is a must-visit for fans of the Sherlock Holmes stories, and offers a unique glimpse into the world of the great detective.",
+        "latitude": 51.5238,
+        "longitude": -0.1586
+    },
+    {
+        "id": 2,
+        "name": "The British Museum",
+        "description": "A place where the treasures of the world are on display, and the past comes to life.",
+        "hint": "Home to the Rosetta Stone and the Elgin Marbles.",
+        "info": "The British Museum is one of the world's most famous and important museums, and is located in the Bloomsbury area of London. It was established in 1753 and is dedicated to human history, art, and culture. The museum's collection spans over two million years of history and includes artifacts from all over the world. Some of the most famous objects in the museum's collection include the Rosetta Stone, the Elgin Marbles, and the Egyptian mummies. The British Museum is a popular destination for tourists and locals alike, and is a must-visit for anyone interested in history and culture. The museum also hosts a variety of special exhibitions and events throughout the year.",
+        "latitude": 51.5194,
+        "longitude": -0.1270
+    },
+    {
+        "id": 3,
+        "name": "St. Bartholomew's Hospital",
+        "description": "A place where the sick are healed, and the wounded are made whole.",
+        "hint": "The oldest hospital in London.",
+        "info": "St. Bartholomew's Hospital is the oldest hospital in London, and has been providing care to the sick and injured for over 900 years. The hospital was founded in 1123 and is located in the Smithfield area of London. It is part of the National Health Service and is a teaching hospital affiliated with Barts and The London School of Medicine and Dentistry. St. Bartholomew's is known for its high-quality care and innovative medical research, and is a leading center for the treatment of cancer, heart disease, and other serious illnesses. The hospital also has a rich history and is a popular destination for tourists interested in the history of medicine and healthcare.",
+        "latitude": 51.5175,
+        "longitude": -0.1000
+    }
+]
