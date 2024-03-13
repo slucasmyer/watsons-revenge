@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.watsonsrevenge.model.MainViewModel
 import com.example.watsonsrevenge.model.Screen
@@ -32,11 +33,11 @@ fun TreasureHuntCompletedPage(viewModel: MainViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Congratulations!", style = MaterialTheme.typography.headlineLarge)
+        Text(text = "Congratulations!", style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold))
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "You've completed the treasure hunt!", style = MaterialTheme.typography.headlineMedium)
+        Text(text = "Treasure Hunt Completed!", style = MaterialTheme.typography.headlineMedium)
 
         Spacer(modifier = Modifier.height(16.dp))
 
