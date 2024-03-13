@@ -2,10 +2,12 @@ package com.example.watsonsrevenge.ui.composables
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -59,18 +61,25 @@ fun CluePage(viewModel: MainViewModel) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Clue Page", style = MaterialTheme.typography.headlineLarge)
+
+        Text(text = "Clue", style = MaterialTheme.typography.headlineLarge)
+
         Spacer(modifier = Modifier.height(16.dp))
+
         TimerDisplay()
+
         Spacer(modifier = Modifier.height(16.dp))
+
         location?.let {
             Text("Current Location: Lat: ${it.latitude}, Lon: ${it.longitude}")
         } ?: Text("Waiting for location...")
+
         Spacer(modifier = Modifier.height(16.dp))
+
         currentClue?.let {
             Text("Clue Location: Lat: ${it.latitude}, Lon: ${it.longitude}")
             Spacer(modifier = Modifier.height(16.dp))
-            Text("Clue: ${it.description}")
+            Text(it.description, style = MaterialTheme.typography.headlineLarge)
             if (showHint.value) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text("Hint: ${it.hint}")
@@ -80,55 +89,52 @@ fun CluePage(viewModel: MainViewModel) {
         proximityMessage?.let {
             Text(it, style = MaterialTheme.typography.bodyLarge, color = Color.Red)
         }
-
         Spacer(modifier = Modifier.height(16.dp))
+        Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+            // Hint Button
+            Button(modifier = Modifier.weight(1f), onClick = { showHint.value = !showHint.value }) {
+                Text("Get Hint")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(modifier = Modifier.weight(1f), onClick = {
+                location?.let { currentLocation ->
+                    // Create Geo instances for user location and clue location
+                    val userGeo = Geo(currentLocation.latitude, currentLocation.longitude)
+                    val clueGeo = currentClue?.let { clue -> Geo(clue.latitude, clue.longitude) }
 
-        // Hint Button
-        Button(onClick = { showHint.value = !showHint.value }) {
-            Text("Get Hint")
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = {
-            location?.let { currentLocation ->
-                // Create Geo instances for user location and clue location
-                val userGeo = Geo(currentLocation.latitude, currentLocation.longitude)
-                val clueGeo = currentClue?.let { clue -> Geo(clue.latitude, clue.longitude) }
+                    clueGeo?.let {
+                        // Calculate the distance
+                        val distance = userGeo.haversine(it)
 
-                clueGeo?.let {
-                    // Calculate the distance
-                    val distance = userGeo.haversine(it)
-
-                    if (distance <= viewModel.clueProximityThreshold) {
-                        TimerUtil.pauseTimer()
-                        viewModel.updateProximityMessage(null)
-                        viewModel.navigateTo(Screen.ClueSolvedPage)
-                        if (viewModel.isLastClue()) {
-                            viewModel.navigateTo(Screen.TreasureHuntCompletedPage)
-                        } else {
+                        if (distance <= viewModel.clueProximityThreshold) {
+                            TimerUtil.pauseTimer()
+                            viewModel.updateProximityMessage(null)
                             viewModel.navigateTo(Screen.ClueSolvedPage)
+                            if (viewModel.isLastClue()) {
+                                viewModel.navigateTo(Screen.TreasureHuntCompletedPage)
+                            } else {
+                                viewModel.navigateTo(Screen.ClueSolvedPage)
+                            }
+                        } else {
+                            viewModel.updateDialog("You're still $distance km away from the clue. Keep looking!", true)
                         }
-                    } else {
-                        viewModel.updateDialog("You're still $distance km away from the clue. Keep looking!", true)
                     }
                 }
+            }) {
+                Text("Found It!")
             }
-        }) {
-            Text("Found It!")
         }
+
         Spacer(modifier = Modifier.height(16.dp))
 
         // Quit Button
         Button(onClick = {
             viewModel.quitGame()
-        }) {
+        }, modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)) {
             Text("Quit")
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { viewModel.navigateTo(Screen.ClueSolvedPage) },
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text("ClueSolvedPage ->")
-        }
+
     }
 }

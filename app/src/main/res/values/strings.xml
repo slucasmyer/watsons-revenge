@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Watsons Revenge</string>
+    <string name="game_rules_headline">Rules of Engagement</string>
+    <string name="game_rules_intro">Sherlock is presumed dead following his disappearance on the continent while in pursuit of the notorious James Moriarty. He has left you a list of cryptic clues. You must follow the trail to solve the mystery in honor of the world\'s most famous detective.</string>
+    <string name="game_rules_body">\n1. Upon pressing the start button below, the timer will start and you will be provided the first clue.\n\n2. Press the "Found It!" button when you think you have reached the right location.\n\n3. Use the hints if you need extra help.\n\n4. When you\'ve successfully located the clue, the timer will pause and you will be provided with additional information pertaining to the clue you just solved\n\n5. Press continue to head to the next clue and repeat the process until you\'ve uncovered all the clues.</string>
+
 </resources>
