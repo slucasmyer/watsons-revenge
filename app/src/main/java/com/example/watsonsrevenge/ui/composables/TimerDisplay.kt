@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.watsonsrevenge.util.TimerUtil
 import java.util.concurrent.TimeUnit
@@ -23,7 +24,7 @@ fun TimerDisplay() {
 
     Text(
         text = "Time Elapsed: $formattedTime",
-        style = MaterialTheme.typography.bodyLarge,
+        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
         modifier = Modifier.padding(8.dp)
     )
 }

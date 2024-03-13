@@ -14,6 +14,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.watsonsrevenge.model.MainViewModel
 import com.example.watsonsrevenge.model.Screen
@@ -27,7 +28,7 @@ fun ClueSolvedPage(viewModel: MainViewModel) {
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Clue Solved!", style = MaterialTheme.typography.headlineLarge)
+        Text(text = "Clue Solved!", style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold))
         Spacer(modifier = Modifier.height(16.dp))
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -46,16 +47,20 @@ fun ClueSolvedPage(viewModel: MainViewModel) {
                 TimerUtil.startTimer() // Restart the timer for the next clue
                 viewModel.navigateTo(Screen.CluePage)
 
-            }
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         ) {
-            Text("Continue")
+            Text("Continue to next clue!")
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { viewModel.navigateTo(Screen.TreasureHuntCompletedPage) },
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text("Complete Hunt")
+        // Quit Button
+        Button(onClick = {
+            viewModel.quitGame()
+        }, modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)) {
+            Text("Quit")
         }
     }
 }

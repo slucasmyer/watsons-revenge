@@ -24,10 +24,14 @@ class MainViewModel : ViewModel() {
     private val _showDialog = MutableLiveData(false)
     val showDialog: LiveData<Boolean> = _showDialog
 
+    private val _dialogTitle = MutableLiveData<String>("")
+    val dialogTitle: LiveData<String> = _dialogTitle
+
     private val _dialogMessage = MutableLiveData<String>("")
     val dialogMessage: LiveData<String> = _dialogMessage
 
-    fun updateDialog(message: String?, show: Boolean) {
+    fun updateDialog(title: String?, message: String?, show: Boolean) {
+        _dialogTitle.value = title ?: ""
         _dialogMessage.value = message ?: ""
         _showDialog.value = show
     }

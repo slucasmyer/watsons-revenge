@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.watsonsrevenge.R
 import com.example.watsonsrevenge.model.MainViewModel
@@ -33,12 +34,12 @@ fun StartPage(viewModel: MainViewModel) {
         modifier = Modifier.verticalScroll(rememberScrollState()).fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(id = R.string.app_name), style = MaterialTheme.typography.headlineLarge)
+        Text(text = stringResource(id = R.string.app_name), style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold))
         Spacer(modifier = Modifier.height(16.dp))
-        location?.let {
-            Text("Current Location: Lat: ${it.latitude}, Lon: ${it.longitude}")
-        } ?: Text("Waiting for location...")
-        Spacer(modifier = Modifier.height(16.dp))
+//        location?.let {
+//            Text("Current Location: Lat: ${it.latitude}, Lon: ${it.longitude}")
+//        } ?: Text("Waiting for location...")
+//        Spacer(modifier = Modifier.height(16.dp))
         Box(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Text(text = stringResource(id = R.string.game_rules_intro), style = MaterialTheme.typography.headlineSmall)
         }

@@ -45,6 +45,7 @@ fun TreasureHuntCompletedPage(viewModel: MainViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Congratulations!", style = MaterialTheme.typography.headlineLarge)
+        Spacer(modifier = Modifier.height(16.dp))
         Text(text = "You've completed the treasure hunt!", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
 

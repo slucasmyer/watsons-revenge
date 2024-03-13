@@ -1,6 +1,5 @@
 package com.example.watsonsrevenge.ui.composables
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.watsonsrevenge.model.MainViewModel
 import com.example.watsonsrevenge.model.Screen
@@ -29,25 +28,25 @@ import com.example.watsonsrevenge.util.TimerUtil
 
 @Composable
 fun CluePage(viewModel: MainViewModel) {
-    val context = LocalContext.current
+
     val currentClue by viewModel.currentClue.observeAsState()
     val location by viewModel.locationUpdates.observeAsState()
     val proximityMessage by viewModel.proximityMessage.observeAsState()
     val showHint = remember { mutableStateOf(false) }
-
     val showDialog by viewModel.showDialog.observeAsState(false)
+    val dialogTitle by viewModel.dialogTitle.observeAsState("")
     val dialogMessage by viewModel.dialogMessage.observeAsState("")
 
     if (showDialog) {
         AlertDialog(
             onDismissRequest = {
-                viewModel.updateDialog(null, false)
+                viewModel.updateDialog(null, null, false)
             },
-            title = { Text("Hint") },
+            title = { Text(dialogTitle) },
             text = { Text(dialogMessage) },
             confirmButton = {
                 Button(onClick = {
-                    viewModel.updateDialog(null, false)
+                    viewModel.updateDialog(null,null, false)
                 }) {
                     Text("OK")
                 }
@@ -62,7 +61,7 @@ fun CluePage(viewModel: MainViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Clue", style = MaterialTheme.typography.headlineLarge)
+        Text(text = "Clue", style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold))
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -70,21 +69,20 @@ fun CluePage(viewModel: MainViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        location?.let {
-            Text("Current Location: Lat: ${it.latitude}, Lon: ${it.longitude}")
-        } ?: Text("Waiting for location...")
-
-        Spacer(modifier = Modifier.height(16.dp))
+//        location?.let {
+//            Text("Current Location: Lat: ${it.latitude}, Lon: ${it.longitude}")
+//        } ?: Text("Waiting for location...")
+//
+//        Spacer(modifier = Modifier.height(16.dp))
 
         currentClue?.let {
-            Text("Clue Location: Lat: ${it.latitude}, Lon: ${it.longitude}")
-            Spacer(modifier = Modifier.height(16.dp))
             Text(it.description, style = MaterialTheme.typography.headlineLarge)
             if (showHint.value) {
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("Hint: ${it.hint}")
+                Text(it.hint)
             }
         } ?: Text("No clue available")
+
         Spacer(modifier = Modifier.height(16.dp))
         proximityMessage?.let {
             Text(it, style = MaterialTheme.typography.bodyLarge, color = Color.Red)
@@ -92,7 +90,24 @@ fun CluePage(viewModel: MainViewModel) {
         Spacer(modifier = Modifier.height(16.dp))
         Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             // Hint Button
-            Button(modifier = Modifier.weight(1f), onClick = { showHint.value = !showHint.value }) {
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {
+//                    showHint.value = !showHint.value
+                    currentClue?.let { clue ->
+                        viewModel.updateDialog(
+                            "Hint",
+                            clue.hint,
+                            true
+                        )
+                    }
+//                    viewModel.updateDialog(
+//                        "Hint",
+//                        "You're still $distance km away from the clue. Keep looking!",
+//                        true
+//                    )
+                }
+            ) {
                 Text("Get Hint")
             }
             Spacer(modifier = Modifier.width(16.dp))
@@ -116,7 +131,11 @@ fun CluePage(viewModel: MainViewModel) {
                                 viewModel.navigateTo(Screen.ClueSolvedPage)
                             }
                         } else {
-                            viewModel.updateDialog("You're still $distance km away from the clue. Keep looking!", true)
+                            viewModel.updateDialog(
+                                "Not Quite!",
+                                "You're still $distance km away from the clue. Keep looking!",
+                                true
+                            )
                         }
                     }
                 }
